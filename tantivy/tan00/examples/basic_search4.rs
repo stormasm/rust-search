@@ -1,10 +1,9 @@
-use std::fs::{create_dir, remove_dir_all};
+use std::fs::create_dir;
 use std::path::Path;
 use tantivy::schema::{Document, Schema, STORED, TEXT};
 use tantivy::Index;
 
 fn main() -> tantivy::Result<()> {
-
     let mut schema_builder = Schema::builder();
     schema_builder.add_text_field("title", TEXT | STORED);
     schema_builder.add_text_field("body", TEXT);
@@ -17,7 +16,7 @@ fn main() -> tantivy::Result<()> {
         create_dir(index_path).expect("dir already exists");
     }
 
-    let index = Index::create_in_dir(&index_path, schema.clone())?;
+    let index = Index::open_in_dir(&index_path).unwrap(); //ok
 
     let mut index_writer = index.writer(50_000_000)?;
     let title = schema.get_field("title").unwrap();

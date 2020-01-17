@@ -9,7 +9,7 @@ fn main() -> tantivy::Result<()> {
     schema_builder.add_text_field("body", TEXT);
     let schema = schema_builder.build();
 
-    let index_path = Path::new("/tmp66/tantivy/idxbs");
+    let index_path = Path::new("/tmp/tantivy/idxbs");
     let dir_exists = index_path.exists();
 
     if !dir_exists {

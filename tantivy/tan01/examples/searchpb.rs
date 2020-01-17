@@ -17,7 +17,7 @@ fn create_schema() -> Schema {
 
 fn main() -> tantivy::Result<()> {
     let args: Vec<String> = env::args().collect();
-    let mut search_string = "bill";
+    let mut search_string = "diary";
 
     if args.len() == 2 {
         search_string = &args[1];
@@ -31,7 +31,7 @@ fn main() -> tantivy::Result<()> {
 
     let schema = create_schema();
     let title = schema.get_field("title").unwrap();
-    let id: Field = schema.get_field("id").unwrap();
+    //  let id: Field = schema.get_field("id").unwrap();
 
     let reader = index
         .reader_builder()
@@ -39,7 +39,7 @@ fn main() -> tantivy::Result<()> {
         .try_into()?;
 
     let searcher = reader.searcher();
-    let query_parser = QueryParser::for_index(&index, vec![title, id]);
+    let query_parser = QueryParser::for_index(&index, vec![title]);
     let query = query_parser.parse_query(search_string)?;
     let top_docs = searcher.search(&query, &TopDocs::with_limit(10))?;
     for (_score, doc_address) in top_docs {

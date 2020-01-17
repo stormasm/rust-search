@@ -20,8 +20,12 @@ fn main() -> tantivy::Result<()> {
 
     let title = schema.get_field("title").unwrap();
     let id: Field = schema.get_field("id").unwrap();
-    index_writer.add_document(doc!(title => "Post about Ralph", id => 50u64));
-    index_writer.add_document(doc!(title => "Bill is a good guy", id => 500u64));
+
+    let id_a: u64 = 333;
+    let id_b: u64 = 666;
+
+    index_writer.add_document(doc!(title => "Post about Sam", id => id_a));
+    index_writer.add_document(doc!(title => "Stu is a good guy", id => id_b));
 
     index_writer.commit()?;
     Ok(())

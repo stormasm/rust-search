@@ -1,3 +1,7 @@
+// Derived from here:
+//
+// https://docs.rs/tantivy/0.11.3/tantivy/collector/struct.TopDocs.html#example
+
 use tantivy::schema::Field;
 use tantivy::SegmentReader;
 

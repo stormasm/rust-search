@@ -1,3 +1,4 @@
+use std::env;
 use std::path::Path;
 use tantivy::collector::TopDocs;
 use tantivy::query::QueryParser;
@@ -5,6 +6,15 @@ use tantivy::schema::{Schema, STORED, TEXT};
 use tantivy::{Index, ReloadPolicy};
 
 fn main() -> tantivy::Result<()> {
+    let args: Vec<String> = env::args().collect();
+    let mut search_string = "sea whale";
+
+    if args.len() == 2 {
+        search_string = &args[1];
+    }
+
+    println!("search string = {}", search_string);
+
     let index_path = Path::new("/tmp/tantivy/idxbs");
 
     let mut schema_builder = Schema::builder();
@@ -24,7 +34,7 @@ fn main() -> tantivy::Result<()> {
 
     let searcher = reader.searcher();
     let query_parser = QueryParser::for_index(&index, vec![title, body]);
-    let query = query_parser.parse_query("sea whale")?;
+    let query = query_parser.parse_query(search_string)?;
     let top_docs = searcher.search(&query, &TopDocs::with_limit(10))?;
     for (_score, doc_address) in top_docs {
         let retrieved_doc = searcher.doc(doc_address)?;

@@ -1,6 +1,7 @@
 use std::path::Path;
-use tantivy::schema::{Document, Schema, STORED, TEXT};
-use tantivy::Index;
+use tantivy::schema::*;
+use tantivy::schema::{Schema, TEXT};
+use tantivy::{doc, Index};
 
 fn create_schema() -> Schema {
     let mut schema_builder = Schema::builder();
@@ -10,7 +11,6 @@ fn create_schema() -> Schema {
 }
 
 fn main() -> tantivy::Result<()> {
-
     let schema = create_schema();
 
     let index_path = Path::new("/tmp/tantivy/idxbs");

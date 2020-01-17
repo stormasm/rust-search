@@ -5,8 +5,8 @@ use tantivy::{doc, Index};
 
 fn create_schema() -> Schema {
     let mut schema_builder = Schema::builder();
-    schema_builder.add_text_field("title", TEXT);
-    schema_builder.add_u64_field("id", FAST);
+    schema_builder.add_text_field("title", TEXT | STORED);
+    schema_builder.add_u64_field("id", FAST | STORED);
     schema_builder.build()
 }
 

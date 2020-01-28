@@ -1,18 +1,29 @@
-### Examples
 
-basic_search is out of the box from tantivy
+To get this up and running from an initial state...
 
-basic_search1 has the added capability of being
-able to see the output of the index writer in
-the directory /tmp/tantivy.  Where as basic_search
-uses **tempfile::TempDir** and the indexed document
-data is destroyed when the program exits.
+```
+alias cb='cargo build'
+alias cre='cargo run --example'
+alias ttclean='cd /tmp; rm -fr tantivy; mkdir tantivy'
+```
 
-##### New work
+```
+ttclean
 
-* Create a tantivy document
-* convert it to json
-* write it to redis using a redis pool
-* read it from redis using a redis pool
-* convert the json to a tantivy document
-* compare the 2 documents
+### Build the initial index from scratch
+cre indexhn
+
+### Search the index
+cre searchpb
+cre searchpb dairy
+
+### Open the index and add in more documents
+cre indexa
+
+### search the index
+cre searchpb ralph
+cre searchpb bill
+
+### to build a binary from the example
+cb --example searchpb
+```

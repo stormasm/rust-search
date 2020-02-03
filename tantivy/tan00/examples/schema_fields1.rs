@@ -1,6 +1,7 @@
 // This will work on any meta.json file located in the directory
 
 use std::path::Path;
+use tantivy::query::QueryParser;
 use tantivy::schema::Field;
 use tantivy::Index;
 
@@ -16,13 +17,12 @@ fn main() -> tantivy::Result<()> {
 
     //let x1 = schema
 
-    let default_fields: Vec<&str> = schema
-        //let default_fields = schema
-        .fields()
-        .map(|(_, fe)| fe.name())
-        .collect::<Vec<_>>();
+    let default_fields: Vec<Field> = schema.fields().map(|(f, _)| f).collect::<Vec<_>>();
 
-    println!("{:?}", default_fields);
+    let _query_parser =
+        QueryParser::new(schema.clone(), default_fields, index.tokenizers().clone());
+
+    //println!("{:?}", default_fields);
 
     println!("{}", "----------------------");
 

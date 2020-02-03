@@ -1,8 +1,8 @@
 // This will work on any meta.json file located in the directory
 
 use std::path::Path;
-use tantivy::Index;
 use tantivy::schema::Field;
+use tantivy::Index;
 
 fn main() -> tantivy::Result<()> {
     let directory = Path::new("/tmp/tantivy/idxbs");
@@ -14,7 +14,21 @@ fn main() -> tantivy::Result<()> {
     let index = Index::open_in_dir(&directory)?;
     let schema = index.schema();
 
-    let default_fields: Vec<Field> = schema.fields().collect::<Vec<_>>();
+    //let x1 = schema
+
+    let default_fields = schema
+        .fields()
+        .enumerate()
+        .map(|(_, fe)| fe)
+        .collect::<Vec<_>>();
+
+    println!("{:?}", default_fields);
+
+    println!("{}", "----------------------");
+
+    for val in schema.fields() {
+        println!("{:?}", val);
+    }
 
     // let myfields: Vec<> = schema.fields().collect();
 

@@ -16,7 +16,8 @@ fn main() -> tantivy::Result<()> {
 
     //let x1 = schema
 
-    let default_fields = schema
+    let default_fields: Vec<Field> = schema
+    //let default_fields = schema
         .fields()
         .enumerate()
         .map(|(_, fe)| fe)
